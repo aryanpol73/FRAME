@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@theme {
+  --color-base: #0d0b0a;
+  --color-surface: #141210;
+  --color-cream: #f5f0e8;
+  --color-muted: #9a9088;
+  --color-gold: #e8c170;
+  --color-sienna: #c4704a;
+  --color-line: #1e1a17;
+  --color-marquee: #3a3530;
+
+  --font-display: var(--font-bebas), "Bebas Neue", sans-serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
+  --font-serif: var(--font-playfair), Georgia, serif;
+
+  --ease-reveal: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  background: var(--color-base);
+  color: var(--color-cream);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cursor-none-desktop,
+  .cursor-none-desktop * {
+    cursor: none;
+  }
+}
+
+.nav-link {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-base);
+}
+
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee-left 35s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}
+
+.portrait-tilt {
+  transform: rotate(-1.5deg);
+  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.portrait-tilt:hover {
+  transform: rotate(0deg);
+}

@@ -1,3 +1,0 @@
-import{Ca as f,ta as s}from"https://app.framerstatic.com/chunk-7PYFGT4W.mjs";function p(e,n){let r="Unknown error";n!==void 0&&(r=n instanceof Error?n.message:""+n),e&&"error"in e&&(r=e.error);let i=d(e),t=/^Unable to resolve specifier '(?<specifier>[^']*)'/u.exec(r);return t?.groups?.specifier&&(r=`Unable to resolve '${t.groups.specifier}'
-You may need to reload your project`,i=void 0),{message:r,title:i}}var o="Error";function d(e){if(!e)return o;let{identifier:n,file:r,name:i}=e,t=f(n);return u(t,r,i)}function u(e,n,r){return s(e)?e.type==="codeFile"?`Error in ${a(n)}`:r?`Error in ${r}`:o:o}function a(e){return e.startsWith("./")?e.replace("./",""):e}export{p as a};
-//# sourceMappingURL=https://app.framerstatic.com/chunk-HJB2CJLO.mjs.map

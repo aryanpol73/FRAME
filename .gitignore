@@ -1,6 +1,8 @@
-﻿node_modules/
+node_modules/
 .next/
 out/
 .env
 .env.local
 *.log
+*.tsbuildinfo
+.archive/

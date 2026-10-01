@@ -1,2 +1,0 @@
-import{a as t}from"https://app.framerstatic.com/chunk-YO7RKGRT.mjs";import{j as e}from"https://app.framerstatic.com/chunk-A2TWATZS.mjs";var o={skipInterstitial:"off",canvasPages:"off",yieldThirdPartyScripts:"off"},r=new e(o,{assertIfUsedBeforeUpdate:!0});window?.framerProjectFeatures&&r.update(window.framerProjectFeatures);var n=t(r);export{o as a,r as b};
-//# sourceMappingURL=https://app.framerstatic.com/chunk-3GVA3IM4.mjs.map

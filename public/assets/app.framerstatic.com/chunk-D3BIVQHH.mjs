@@ -1,2 +1,0 @@
-function c(o,t){let e=document.createElement("a");e.href=o,e.download=t,document.body.appendChild(e),e.click(),e.remove()}function r(o,t,e={type:"application/json"}){let n=URL.createObjectURL(new Blob([o],e));c(n,t),URL.revokeObjectURL(n)}function i(o,t){let e=URL.createObjectURL(o);c(e,t),URL.revokeObjectURL(e)}export{c as a,r as b,i as c};
-//# sourceMappingURL=https://app.framerstatic.com/chunk-D3BIVQHH.mjs.map

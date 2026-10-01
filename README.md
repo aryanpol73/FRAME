@@ -1,49 +1,85 @@
-# unique-founders-146943.framer.app
+# FRAME
 
-An exact copy of the published site, in a Next.js project.
+Photography site for Aryan Pol. Moments worth keeping.
+
+Next.js 15 App Router · TypeScript · Tailwind CSS v4 · Framer Motion · Supabase · Cloudinary
+
+## Setup
+
+1. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+2. Copy env vars and fill them in:
+
+   ```bash
+   cp .env.local.example .env.local
+   ```
+
+3. Run the database migration — paste `supabase/migrations/20240101000000_init.sql`
+   into the Supabase SQL editor, or:
+
+   ```bash
+   supabase db push
+   ```
+
+4. In Cloudinary, create an **unsigned** upload preset and put its name in
+   `NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET`. Unsigned is required because the
+   browser uploads directly.
+
+5. In Supabase → Authentication → Sign In / Providers, **disable public signups**,
+   then add `aryan.pol737@gmail.com` as the only user. Admin access is magic-link only.
+
+6. Add `http://localhost:3000/auth/callback` and your production equivalent to
+   Supabase → Authentication → URL Configuration → Redirect URLs.
+
+7. Start the dev server:
+
+   ```bash
+   npm run dev
+   ```
+
+## Deploying the caption edge function
 
 ```bash
-npm install
-npm run dev
+supabase login
+supabase link --project-ref <your-project-ref>
+supabase secrets set ANTHROPIC_API_KEY=sk-ant-...
+supabase functions deploy generate-caption
 ```
 
-## What this is
+Verify it:
 
-Every page is a file under `public/`, copied from the published site and served
-byte for byte by a rewrite in `next.config.mjs`. It renders exactly as Framer
-published it, including the parts a rebuild cannot reach - a WebGL canvas, a
-component driven frame by frame - because nothing here was interpreted.
+```bash
+curl -i -X POST \
+  "https://<project-ref>.supabase.co/functions/v1/generate-caption" \
+  -H "Authorization: Bearer <anon-key>" \
+  -H "Content-Type: application/json" \
+  -d '{"imageUrl":"https://res.cloudinary.com/<cloud>/image/upload/<id>.jpg"}'
+```
 
-3 routes:
+The response streams plain text. `/api/generate-caption` requires a signed-in
+Supabase session before it will proxy to this function.
 
-- `/`
-- `/series`
-- `/about`
+## Deploying the frontend
 
-## What this is not
+Import the repo on Vercel. Framework preset: Next.js. Add every variable from
+`.env.local.example` except `ANTHROPIC_API_KEY`, which belongs only in Supabase
+secrets. Pushes to `main` auto-deploy. No `vercel.json` is needed — Vercel
+detects Next.js and there is no custom routing, cron, or region config.
 
-Source you can edit. The markup is Framer's, minified, alongside its runtime -
-you can host it, put your domain on it and add pages of your own around it, but
-changing the design means changing it in Framer and exporting again.
+## Notes
 
-## Making it editable anyway
-
-Two ways. The quick one: export the plugin's React / Next.js tier instead. It
-rebuilds the pages as components with their own stylesheet - readable at once,
-and not pixel-identical.
-
-The thorough one: convert this copy by hand. Nothing here is fetched from
-Framer, so the whole site is already in this folder and the work can be done
-offline, at any number of pages, keeping the pixels.
-
-`.claude/skills/framer-export-to-react/SKILL.md` is that second method written
-down: what to keep, what to rebuild, and the question to answer before either.
-That folder is hidden - `ls -a` in a terminal, Shift-Command-. in Finder.
-Open this folder in a coding agent that reads `.claude/skills` - Claude Code
-does - and ask it to make the site editable; it will find the skill on its own.
-Or read it yourself. It is prose, not a script.
-
-## Adding your own pages
-
-Anything you add under `app/` works normally, as long as its route is not one
-of the rewrites above - those are answered by the copy before Next sees them.
+- The original Framer export lived in `public/` and was served by `beforeFiles`
+  rewrites in `next.config.mjs`. Those rewrites intercepted `/`, `/series`, and
+  `/about` before the router saw them, so they were removed. The export is
+  archived in `.archive/` (gitignored).
+- `/admin` is guarded by `middleware.ts`. `app/admin/layout.tsx` renders the
+  login page bare when there's no session, which avoids a redirect loop.
+- The caption model is pinned to `claude-sonnet-4-6`. Anthropic's dateless IDs
+  are fixed snapshots, not moving pointers — upgrading means editing the string
+  in `supabase/functions/generate-caption/index.ts`.
+- No camera gear is referenced anywhere. EXIF display is deliberately limited to
+  location, date, and time.
