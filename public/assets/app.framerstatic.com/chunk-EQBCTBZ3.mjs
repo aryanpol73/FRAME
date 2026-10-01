@@ -1,0 +1,2 @@
+function i(e){if(typeof e!="object"||!e||!("framerRelease"in e)||typeof e.framerRelease!="object"||!e.framerRelease)return;let{framerRelease:r}=e;if(!("channel"in r)||typeof r.channel!="string")return;let{channel:n}=r;if("override"in r&&typeof r.override=="string"){let{override:t}=r;return{channel:n,override:t}}else return{channel:n}}export{i as a};
+//# sourceMappingURL=https://app.framerstatic.com/chunk-EQBCTBZ3.mjs.map

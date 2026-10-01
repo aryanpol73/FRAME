@@ -1,0 +1,2 @@
+import{a as r}from"https://app.framerstatic.com/chunk-QFU6OGL3.mjs";import{a as t}from"https://app.framerstatic.com/chunk-2FCXHKEL.mjs";import{e as n}from"https://app.framerstatic.com/chunk-WLHSDIGQ.mjs";var e=n(t());function i({children:s,className:a,...o}){return(0,e.jsx)("span",{className:r("translate",a),...o,children:s})}export{i as a};
+//# sourceMappingURL=https://app.framerstatic.com/chunk-4HRYW54D.mjs.map

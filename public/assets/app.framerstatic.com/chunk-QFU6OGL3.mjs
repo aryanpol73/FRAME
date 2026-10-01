@@ -1,0 +1,2 @@
+var c=function(){let a=Array.prototype.slice.call(arguments).filter(Boolean),t={},o=[];a.forEach(s=>{(s?s.split(" "):[]).forEach(e=>{if(e.startsWith("atm_")){let[,n]=e.split("_");t[n]=e}else o.push(e)})});let r=[];for(let s in t)Object.prototype.hasOwnProperty.call(t,s)&&r.push(t[s]);return r.push(...o),r.join(" ")},u=c;export{u as a};
+//# sourceMappingURL=https://app.framerstatic.com/chunk-QFU6OGL3.mjs.map

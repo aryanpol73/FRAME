@@ -1,0 +1,2 @@
+var t=class extends Promise{_state="initial";resolve;reject;get state(){return this._state}pending(){return this._state="pending",this}isResolved(){return this._state==="fulfilled"||this._state==="rejected"}constructor(){let i,r;super((e,s)=>{i=e,r=s}),this.resolve=e=>{this._state="fulfilled",i(e)},this.reject=e=>{this._state="rejected",r(e)}}};t.prototype.constructor=Promise;export{t as a};
+//# sourceMappingURL=https://app.framerstatic.com/chunk-24G7FGVN.mjs.map

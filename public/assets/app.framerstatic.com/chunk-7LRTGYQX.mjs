@@ -1,0 +1,2 @@
+import{a as t}from"https://app.framerstatic.com/chunk-2FCXHKEL.mjs";import{e as o}from"https://app.framerstatic.com/chunk-WLHSDIGQ.mjs";var r=o(t());function n(e){return(0,r.jsx)("svg",{role:"presentation",xmlns:"http://www.w3.org/2000/svg",width:"8",height:"8",viewBox:"0 0 8 8","aria-hidden":"true",...e,children:(0,r.jsx)("path",{d:"m1 2.75 2.293 2.293a1 1 0 0 0 1.414 0L7 2.75",fill:"transparent",strokeWidth:"1.5",stroke:"currentColor",strokeLinecap:"round",strokeLinejoin:"round"})})}export{n as a};
+//# sourceMappingURL=https://app.framerstatic.com/chunk-7LRTGYQX.mjs.map

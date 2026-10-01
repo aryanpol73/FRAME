@@ -1,0 +1,2 @@
+import{b as r}from"https://app.framerstatic.com/chunk-NAZ7U4PN.mjs";import{c as e}from"https://app.framerstatic.com/chunk-4JY5UMT2.mjs";function n(a){let t=r();switch(a){case"default":return{variant:"default"};case"darker":return{variant:"darker",darkOnDark:t};default:e(a,"Invalid modal variant")}}function s(a){switch(a){case"default":return{variant:"default"};case"darker":return{variant:"darker",darkOnDark:!0};default:e(a,"Invalid modal variant")}}export{n as a,s as b};
+//# sourceMappingURL=https://app.framerstatic.com/chunk-XDDKIR7B.mjs.map
