@@ -51,9 +51,10 @@ export default function LoginPage() {
         <button
           type="submit"
           disabled={status === "sending"}
-          className="mt-4 w-full border border-gold px-4 py-3 text-[11px] uppercase tracking-[0.15em] text-gold transition-colors hover:bg-gold hover:text-base disabled:opacity-50"
+          className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full border border-gold/40 bg-gold/15 px-5 py-3 text-[11px] font-medium uppercase tracking-[0.2em] text-cream backdrop-blur-md transition-all duration-300 hover:border-gold hover:bg-gold/25 hover:text-gold hover:shadow-[0_0_25px_rgba(200,169,110,0.3)] active:scale-95 disabled:opacity-50"
         >
-          {status === "sending" ? "Sending…" : "Send magic link"}
+          <span>{status === "sending" ? "Sending…" : "Send magic link"}</span>
+          <span className="text-gold">→</span>
         </button>
 
         {message && (

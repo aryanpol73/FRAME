@@ -4,8 +4,9 @@ const PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
 type Transform = {
   width?: number
   height?: number
-  crop?: "fill" | "fit" | "limit"
+  crop?: "fill" | "fit" | "limit" | "scale" | "thumb"
   quality?: string | number
+  dpr?: string | number | "auto"
 }
 
 export function cldUrl(src: string, t: Transform = {}) {
@@ -13,6 +14,7 @@ export function cldUrl(src: string, t: Transform = {}) {
   const parts = [
     "f_auto",
     `q_${t.quality ?? "auto"}`,
+    `dpr_${t.dpr ?? "auto"}`,
     t.width && `w_${t.width}`,
     t.height && `h_${t.height}`,
     t.crop && `c_${t.crop}`,

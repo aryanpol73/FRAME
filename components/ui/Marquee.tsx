@@ -1,4 +1,4 @@
-const UNIT = "FRAME  ·  aryan.on.cam  ·  PHOTOGRAPHY  ·  PUNE  ·  "
+const UNIT = "FRAME  ·  aryan.on.cam  ·  PHOTOGRAPHY  ·  KEEP WHAT MATTERS  ·  "
 
 export default function Marquee() {
   const strip = UNIT.repeat(8)

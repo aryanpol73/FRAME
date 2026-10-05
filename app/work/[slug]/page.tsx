@@ -4,6 +4,7 @@ import Navbar from "@/components/layout/Navbar"
 import Footer from "@/components/layout/Footer"
 import PhotoHero from "@/components/photos/PhotoHero"
 import ExifPills from "@/components/photos/ExifPills"
+import PhotoReactions from "@/components/photos/PhotoReactions"
 import { createClient } from "@/lib/supabase/server"
 import { cldUrl } from "@/lib/cloudinary"
 
@@ -67,6 +68,14 @@ export default async function WorkPage({
 
         <div className="mt-12">
           <ExifPills location={photo.exif_location} shotAt={photo.exif_shot_at} />
+        </div>
+
+        {/* Editorial Reactions Dock */}
+        <div className="mt-12 border-t border-line/60 pt-8">
+          <p className="text-[10px] uppercase tracking-[0.2em] text-gold mb-4">
+            Audience Reactions
+          </p>
+          <PhotoReactions photoId={photo.id} />
         </div>
       </section>
 

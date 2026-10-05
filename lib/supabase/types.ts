@@ -46,6 +46,40 @@ export type SeriesInsert = {
   created_at?: string
 }
 
+export type ReactionType = "appreciate" | "beautiful" | "peaceful" | "caught_my_eye"
+
+export type PhotoReaction = {
+  id: string
+  photo_id: string
+  reaction_type: ReactionType
+  client_id: string
+  created_at: string
+}
+
+export type PhotoReactionInsert = {
+  id?: string
+  photo_id: string
+  reaction_type: ReactionType
+  client_id: string
+  created_at?: string
+}
+
+export type GuestbookEntry = {
+  id: string
+  name: string
+  message: string
+  approved: boolean
+  created_at: string
+}
+
+export type GuestbookEntryInsert = {
+  id?: string
+  name: string
+  message: string
+  approved?: boolean
+  created_at?: string
+}
+
 export type Database = {
   public: {
     Tables: {
@@ -59,6 +93,18 @@ export type Database = {
         Row: Series
         Insert: SeriesInsert
         Update: Partial<Series>
+        Relationships: []
+      }
+      photo_reactions: {
+        Row: PhotoReaction
+        Insert: PhotoReactionInsert
+        Update: Partial<PhotoReaction>
+        Relationships: []
+      }
+      guestbook_entries: {
+        Row: GuestbookEntry
+        Insert: GuestbookEntryInsert
+        Update: Partial<GuestbookEntry>
         Relationships: []
       }
     }

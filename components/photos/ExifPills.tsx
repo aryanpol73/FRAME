@@ -20,7 +20,7 @@ export default function ExifPills({
       {pills.map((p) => (
         <li
           key={p}
-          className="border border-line px-4 py-2 text-[11px] uppercase tracking-[0.15em] text-muted"
+          className="rounded-full border border-white/10 bg-surface/60 px-4 py-1.5 text-[10.5px] uppercase tracking-[0.16em] text-muted backdrop-blur-md"
         >
           {p}
         </li>

@@ -7,7 +7,7 @@ import { cldUrl } from "@/lib/cloudinary"
 import type { Photo } from "@/lib/supabase/types"
 
 const WORDS = ["STREETS.", "LIGHT.", "NATURE.", "MOMENTS."]
-const STATS = ["PUNE, INDIA", "2024–PRESENT", "FRAME"]
+const STATS = ["VISUAL JOURNAL", "MOMENTS WORTH KEEPING", "FRAME"]
 
 export default function HeroSection({ photo }: { photo: Photo | null }) {
   const [i, setI] = useState(0)
@@ -70,12 +70,13 @@ export default function HeroSection({ photo }: { photo: Photo | null }) {
         <Link
           href="#work"
           data-cursor="link"
-          className="group mt-8 inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.15em] text-gold"
+          className="group mt-8 inline-flex items-center gap-2.5 rounded-full border border-gold/30 bg-gold/10 px-5 py-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-cream backdrop-blur-md transition-all duration-300 hover:border-gold/60 hover:bg-gold/20 hover:text-gold hover:shadow-[0_0_20px_rgba(200,169,110,0.25)] active:scale-95"
         >
-          View Work
+          <span>View Work</span>
           <motion.span
-            animate={{ y: [0, 5, 0] }}
+            animate={{ y: [0, 4, 0] }}
             transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+            className="text-gold"
           >
             ↓
           </motion.span>

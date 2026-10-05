@@ -32,17 +32,32 @@ export default function CaptionGenerator({
         body: JSON.stringify({ imageUrl }),
       })
 
-      if (!res.ok || !res.body) throw new Error(await res.text())
+      if (!res.ok) {
+        let errMessage = "Generation failed."
+        try {
+          const errData = await res.json()
+          errMessage = errData.error || errMessage
+        } catch {
+          errMessage = (await res.text()) || errMessage
+        }
+        throw new Error(errMessage)
+      }
 
-      const reader = res.body.getReader()
-      const decoder = new TextDecoder()
-      let acc = ""
+      const contentType = res.headers.get("content-type") || ""
+      if (contentType.includes("application/json")) {
+        const data = await res.json()
+        onChange(data.caption ?? "")
+      } else if (res.body) {
+        const reader = res.body.getReader()
+        const decoder = new TextDecoder()
+        let acc = ""
 
-      while (true) {
-        const { done, value: chunk } = await reader.read()
-        if (done) break
-        acc += decoder.decode(chunk, { stream: true })
-        onChange(acc)
+        while (true) {
+          const { done, value: chunk } = await reader.read()
+          if (done) break
+          acc += decoder.decode(chunk, { stream: true })
+          onChange(acc)
+        }
       }
 
       setHasRun(true)
@@ -63,9 +78,10 @@ export default function CaptionGenerator({
           type="button"
           onClick={generate}
           disabled={streaming}
-          className="border border-gold px-4 py-2 text-[10px] uppercase tracking-[0.15em] text-gold transition-colors hover:bg-gold hover:text-base disabled:opacity-50"
+          className="inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold/10 px-4 py-1.5 text-[10px] font-medium uppercase tracking-[0.16em] text-cream backdrop-blur-md transition-all duration-300 hover:border-gold hover:bg-gold/20 hover:text-gold hover:shadow-[0_0_15px_rgba(200,169,110,0.25)] active:scale-95 disabled:opacity-50"
         >
-          {streaming ? "Generating…" : hasRun ? "Regenerate" : "Generate with AI"}
+          <span className="text-gold">✦</span>
+          <span>{streaming ? "Generating…" : hasRun ? "Regenerate" : "Generate with AI"}</span>
         </button>
       </div>
 

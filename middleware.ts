@@ -1,6 +1,8 @@
 import { createServerClient } from "@supabase/ssr"
 import { NextResponse, type NextRequest } from "next/server"
 
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "aryan.pol737@gmail.com"
+
 export async function middleware(request: NextRequest) {
   let response = NextResponse.next({ request })
 
@@ -25,25 +27,37 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-  const { data } = await supabase.auth.getClaims()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
   const path = request.nextUrl.pathname
+  const isAdminPath = path.startsWith("/admin")
+  const isLoginPage = path === "/admin/login"
 
-  const isAdmin = path.startsWith("/admin")
-  const isLogin = path === "/admin/login"
-
-  if (isAdmin && !isLogin && !data?.claims) {
+  // 1. Guard all /admin routes (except /admin/login) against unauthenticated users
+  if (isAdminPath && !isLoginPage && !user) {
     const url = request.nextUrl.clone()
     url.pathname = "/admin/login"
     return NextResponse.redirect(url)
   }
 
-  if (isLogin && data?.claims) {
+  // 2. Guard against authenticated non-admin users
+  if (isAdminPath && !isLoginPage && user && user.email !== ADMIN_EMAIL) {
+    const url = request.nextUrl.clone()
+    url.pathname = "/admin/login"
+    url.searchParams.set("error", "unauthorized")
+    return NextResponse.redirect(url)
+  }
+
+  // 3. If admin is already authenticated, redirect from /admin/login to /admin dashboard
+  if (isLoginPage && user && user.email === ADMIN_EMAIL) {
     const url = request.nextUrl.clone()
     url.pathname = "/admin"
     return NextResponse.redirect(url)
   }
 
-  // Must return the response setAll last built, or refreshed cookies are lost.
+  // Refreshed cookies are passed along
   return response
 }
 

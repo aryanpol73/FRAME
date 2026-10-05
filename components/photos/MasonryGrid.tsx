@@ -54,7 +54,7 @@ export default function MasonryGrid({ photos }: { photos: Photo[] }) {
               key={r}
               className="flex flex-col gap-4 md:flex-row md:items-start"
             >
-              <div className="md:w-[60%]">
+              <div className="w-full min-w-0 md:w-[60%]">
                 <PhotoCard
                   photo={left}
                   index={counter++}
@@ -63,7 +63,7 @@ export default function MasonryGrid({ photos }: { photos: Photo[] }) {
                 />
               </div>
               {right && (
-                <div className="md:w-[38%] md:mt-20">
+                <div className="w-full min-w-0 md:w-[38%] md:mt-20">
                   <PhotoCard
                     photo={right}
                     index={counter++}
@@ -77,9 +77,9 @@ export default function MasonryGrid({ photos }: { photos: Photo[] }) {
 
         if (row.kind === 1) {
           return (
-            <div key={r} className="grid gap-4 md:grid-cols-3 md:items-start">
+            <div key={r} className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 md:items-start">
               {row.items.map((p, i) => (
-                <div key={p.id} className={i === 1 ? "md:-mt-10" : ""}>
+                <div key={p.id} className={`w-full min-w-0 ${i === 1 ? "md:-mt-10" : ""}`}>
                   <PhotoCard photo={p} index={counter++} aspect="aspect-[3/2]" />
                 </div>
               ))}
@@ -88,13 +88,13 @@ export default function MasonryGrid({ photos }: { photos: Photo[] }) {
         }
 
         return (
-          <div key={r} className="max-h-[600px] overflow-hidden">
+          <div key={r} className="w-full min-w-0 overflow-hidden">
             {row.items.map((p) => (
               <PhotoCard
                 key={p.id}
                 photo={p}
                 index={counter++}
-                aspect="aspect-[21/9]"
+                aspect="aspect-[16/9] md:aspect-[21/9]"
               />
             ))}
           </div>
