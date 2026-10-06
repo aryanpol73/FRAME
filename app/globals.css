@@ -65,6 +65,10 @@ button, a {
   .marquee-track { animation: none; }
 }
 
+[data-motion="reduced"] .marquee-track {
+  animation: none;
+}
+
 .portrait-tilt {
   transform: rotate(-1.5deg);
   transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);

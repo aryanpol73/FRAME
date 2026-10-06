@@ -9,11 +9,25 @@ type Transform = {
   dpr?: string | number | "auto"
 }
 
+function getClientQuality(): string {
+  if (typeof window !== "undefined") {
+    try {
+      const saved = localStorage.getItem("frame-quality")
+      if (saved === "high") return "auto:best"
+      if (saved === "eco") return "auto:eco"
+    } catch {
+      // Ignore storage errors
+    }
+  }
+  return "auto"
+}
+
 export function cldUrl(src: string, t: Transform = {}) {
   if (!src) return ""
+  const quality = t.quality ?? getClientQuality()
   const parts = [
     "f_auto",
-    `q_${t.quality ?? "auto"}`,
+    `q_${quality}`,
     `dpr_${t.dpr ?? "auto"}`,
     t.width && `w_${t.width}`,
     t.height && `h_${t.height}`,
