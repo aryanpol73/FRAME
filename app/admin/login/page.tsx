@@ -39,7 +39,8 @@ export default function LoginPage() {
       setMessage("This account is not authorised for admin access.")
     } else if (err === "auth") {
       setStatus("error")
-      setMessage("Sign-in link was invalid or expired.")
+      const reason = new URLSearchParams(window.location.search).get("reason")
+      setMessage(reason || "Sign-in link was invalid or expired.")
     }
   }, [])
 
