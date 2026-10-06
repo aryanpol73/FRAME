@@ -8,6 +8,35 @@ import { NAV_ITEMS, INSTAGRAM } from "./nav"
 
 export { NAV_ITEMS, INSTAGRAM }
 
+const ICONS: Record<string, React.ReactNode> = {
+  FRAME: (
+    <>
+      <rect x="3" y="3" width="18" height="18" rx="4" />
+      <circle cx="12" cy="12" r="3.5" />
+    </>
+  ),
+  WORK: (
+    <>
+      <rect x="3" y="3" width="7.5" height="7.5" rx="2" />
+      <rect x="13.5" y="3" width="7.5" height="7.5" rx="2" />
+      <rect x="3" y="13.5" width="7.5" height="7.5" rx="2" />
+      <rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2" />
+    </>
+  ),
+  SERIES: (
+    <>
+      <rect x="6" y="7" width="15" height="13" rx="2.5" />
+      <path d="M3 16V6a2.5 2.5 0 0 1 2.5-2.5H16" />
+    </>
+  ),
+  ABOUT: (
+    <>
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4 21c0-4 3.6-7 8-7s8 3 8 7" />
+    </>
+  ),
+}
+
 export default function Navbar({ absolute = false }: { absolute?: boolean }) {
   const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
@@ -57,7 +86,12 @@ export default function Navbar({ absolute = false }: { absolute?: boolean }) {
     return pathname.startsWith(href)
   }
 
+  const rawIndex = NAV_ITEMS.findIndex((i) => isItemActive(i.href))
+  const activeIndex = rawIndex === -1 ? 0 : rawIndex
+  const hasActive = rawIndex !== -1
+
   return (
+    <>
     <header
       className={`${
         absolute ? "absolute" : "sticky"
@@ -87,7 +121,7 @@ export default function Navbar({ absolute = false }: { absolute?: boolean }) {
       </Link>
 
       {/* Floating Modern Pill Dock for FRAME / WORK / SERIES / ABOUT */}
-      <nav className="flex items-center gap-1 rounded-full border border-white/[0.08] bg-surface/80 p-1 backdrop-blur-xl shadow-2xl shadow-black/60">
+      <nav className="hidden items-center md:flex gap-1 rounded-full border border-white/[0.08] bg-surface/80 p-1 backdrop-blur-xl shadow-2xl shadow-black/60">
         {NAV_ITEMS.map((item, index) => {
           const active = isItemActive(item.href)
           return (
@@ -117,6 +151,21 @@ export default function Navbar({ absolute = false }: { absolute?: boolean }) {
         })}
       </nav>
 
+      {/* Compact Instagram button for mobile (nav lives in bottom dock) */}
+      <a
+        href={INSTAGRAM}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Instagram"
+        className="flex h-9 w-9 items-center justify-center rounded-full border border-white/[0.1] bg-surface/70 text-muted backdrop-blur-md transition-all duration-300 active:scale-90 active:text-gold sm:hidden"
+      >
+        <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="5" />
+          <circle cx="12" cy="12" r="4" />
+          <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" />
+        </svg>
+      </a>
+
       {/* Modern External Instagram Action */}
       <a
         href={INSTAGRAM}
@@ -131,5 +180,55 @@ export default function Navbar({ absolute = false }: { absolute?: boolean }) {
         </span>
       </a>
     </header>
+
+    {/* Liquid glass bottom dock — mobile / installed PWA */}
+    <nav
+      aria-label="Primary"
+      className="frame-dock fixed inset-x-0 bottom-0 z-[60] flex justify-center px-4 md:hidden"
+      style={{ paddingBottom: "max(env(safe-area-inset-bottom), 12px)" }}
+    >
+      <div className="frame-dock-glass relative grid w-full max-w-md grid-cols-4 rounded-[28px] p-1.5">
+        {/* Sliding liquid indicator */}
+        <span
+          aria-hidden
+          className="frame-dock-pill pointer-events-none absolute bottom-1.5 left-1.5 top-1.5"
+          style={{
+            width: "calc((100% - 12px) / 4)",
+            transform: `translateX(${activeIndex * 100}%)`,
+            opacity: hasActive ? 1 : 0,
+          }}
+        />
+        {NAV_ITEMS.map((item, i) => {
+          const active = hasActive && i === activeIndex
+          return (
+            <Link
+              key={item.label}
+              href={item.href}
+              onClick={(e) => handleNavClick(item.href, e)}
+              aria-current={active ? "page" : undefined}
+              className={`relative z-10 flex flex-col items-center justify-center gap-1 rounded-[22px] py-2.5 transition-all duration-500 active:scale-90 ${
+                active ? "text-gold" : "text-muted"
+              }`}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                className={`h-[22px] w-[22px] transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${
+                  active ? "-translate-y-0.5 scale-110" : ""
+                }`}
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                {ICONS[item.label]}
+              </svg>
+              <span className="text-[9.5px] font-medium uppercase tracking-[0.16em]">{item.label}</span>
+            </Link>
+          )
+        })}
+      </div>
+    </nav>
+    </>
   )
 }
