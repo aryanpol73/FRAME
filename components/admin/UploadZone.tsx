@@ -75,7 +75,7 @@ export default function UploadZone({
         <input
           ref={input}
           type="file"
-          accept=".jpg,.jpeg,.png,.webp,.heic,.heif,.avif,image/jpeg,image/png,image/webp,image/heic,image/heif,image/avif"
+          accept="image/*,.jpg,.jpeg,.png,.webp,.heic,.heif,.avif"
           hidden
           disabled={disabled || validating}
           onChange={(e) => {

@@ -92,8 +92,8 @@ export default function SecurityPage() {
 
       <section>
         <h2 className="text-[11px] uppercase tracking-[0.2em] text-cream">Passkeys</h2>
-        <p className="mt-2 text-xs text-muted">
-          Register one per device you use (laptop, phone). Open this page on each device.
+        <p className="mt-2 text-xs text-muted leading-relaxed">
+          Register one passkey per device you use. Passkeys are stored securely in your device&apos;s native credential system (such as Windows Hello on PC, or Android/Google Password Manager on phone). Open this Security page on each device to register its passkey.
         </p>
         <ul className="mt-4 space-y-2">
           {passkeys.map((p) => (
@@ -110,7 +110,7 @@ export default function SecurityPage() {
           {passkeys.length === 0 && <li className="text-xs text-muted">No passkeys registered yet.</li>}
         </ul>
         <button onClick={register} disabled={busy || !supported} className={`${btn} mt-5`}>
-          Register passkey on this device
+          {busy ? "Registering…" : "Register passkey on this device"}
         </button>
         {!supported && <p className="mt-3 text-xs text-sienna">This browser doesn&apos;t support passkeys.</p>}
         {pkNote && <p className={noteCls(pkNote)}>{pkNote.text}</p>}

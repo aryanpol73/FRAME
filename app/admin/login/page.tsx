@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { getAuthRedirectBase } from "@/lib/auth-redirect"
@@ -104,12 +105,22 @@ export default function LoginPage() {
   const busy = status === "busy"
 
   return (
-    <main className="flex min-h-screen items-center justify-center px-6">
+    <main className="flex min-h-screen items-center justify-center px-6 py-12">
       <div className="w-full max-w-sm">
+        <Link
+          href="/"
+          className="mb-8 inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.16em] text-muted hover:text-gold transition-colors"
+        >
+          <span>←</span>
+          <span>Return to portfolio</span>
+        </Link>
+
         <h1 className="font-display text-cream" style={{ fontSize: 48, letterSpacing: "0.04em" }}>
           FRAME
         </h1>
-        <p className="mt-2 mb-10 text-[11px] uppercase tracking-[0.2em] text-muted">Admin access</p>
+        <p className="mt-2 mb-10 text-[11px] uppercase tracking-[0.2em] text-muted">
+          Studio · Private Access
+        </p>
 
         <button type="button" onClick={passkeySignIn} disabled={busy || !supported} className={primaryBtn}>
           <span>{busy ? "Waiting…" : "Continue with Passkey"}</span>
