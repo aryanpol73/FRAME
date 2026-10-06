@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
+import { getAuthRedirectBase } from "@/lib/auth-redirect"
 
 type Status = "idle" | "busy" | "sent" | "error"
 
@@ -79,7 +80,7 @@ export default function LoginPage() {
     const supabase = createClient()
     const { error } = await supabase.auth.signInWithOtp({
       email,
-      options: { emailRedirectTo: `${window.location.origin}/auth/callback?next=/admin` },
+      options: { emailRedirectTo: `${getAuthRedirectBase()}/auth/callback?next=/admin` },
     })
     if (error) return fail(error.message)
     setStatus("sent")
@@ -92,7 +93,7 @@ export default function LoginPage() {
     setMessage("")
     const supabase = createClient()
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/auth/callback?next=/admin/security`,
+      redirectTo: `${getAuthRedirectBase()}/auth/callback?next=/admin/security`,
     })
     if (error) return fail(error.message)
     setStatus("sent")
