@@ -63,6 +63,14 @@ export default async function AdminLayout({ children }: { children: ReactNode })
             >
               Upload
             </Link>
+            <span className="text-[10px] text-white/15 select-none">/</span>
+            <Link
+              href="/admin/security"
+              data-cursor="link"
+              className="rounded-full px-4 py-1.5 text-[10.5px] uppercase tracking-[0.16em] font-medium text-muted transition-all duration-300 hover:bg-white/[0.08] hover:text-cream active:scale-90"
+            >
+              Security
+            </Link>
           </nav>
         </div>
 
