@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { createPortal } from "react-dom"
 import Link from "next/link"
 import { INSTAGRAM } from "./nav"
 
@@ -14,6 +15,7 @@ export default function SettingsSheet({
   open: boolean
   onClose: () => void
 }) {
+  const [mounted, setMounted] = useState(false)
   const [motion, setMotion] = useState<MotionPref>("full")
   const [quality, setQuality] = useState<QualityPref>("auto")
   const [isStandalone, setIsStandalone] = useState(false)
@@ -21,6 +23,23 @@ export default function SettingsSheet({
   const [installSuccess, setInstallSuccess] = useState(false)
   const [shareSuccess, setShareSuccess] = useState(false)
   const [expandedInfo, setExpandedInfo] = useState<"privacy" | "credits" | null>(null)
+
+  // Track client mounting for portal
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // Lock background scroll while settings sheet is open
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = ""
+    }
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [open])
 
   // Initialize client settings & preferences
   useEffect(() => {
@@ -118,23 +137,23 @@ export default function SettingsSheet({
     }
   }
 
-  if (!open) return null
+  if (!open || !mounted) return null
 
-  return (
+  const modalContent = (
     <div
       role="dialog"
       aria-modal="true"
       aria-label="Settings & Control"
-      className="fixed inset-0 z-[100] flex items-end justify-center sm:items-center p-0 sm:p-4 animate-fade-in"
+      className="fixed inset-0 z-[9999] flex items-end justify-center sm:items-center p-0 sm:p-4"
     >
       {/* Dimmed glass backdrop */}
       <div
         onClick={onClose}
-        className="fixed inset-0 bg-black/80 backdrop-blur-md transition-opacity duration-300"
+        className="fixed inset-0 z-[9998] bg-black/80 backdrop-blur-md transition-opacity duration-300"
       />
 
       {/* Sheet Container */}
-      <div className="relative z-10 w-full max-w-lg rounded-t-[32px] sm:rounded-[28px] border border-white/[0.1] bg-[#120f0d]/95 p-6 sm:p-8 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.85)] max-h-[88vh] overflow-y-auto">
+      <div className="relative z-[9999] w-full max-w-lg rounded-t-[32px] sm:rounded-[28px] border border-white/[0.1] bg-[#120f0d]/95 p-6 sm:p-8 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.85)] max-h-[85vh] overflow-y-auto">
         {/* Mobile handle indicator */}
         <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-white/20 sm:hidden" />
 
@@ -483,4 +502,6 @@ export default function SettingsSheet({
       </div>
     </div>
   )
+
+  return createPortal(modalContent, document.body)
 }

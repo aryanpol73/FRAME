@@ -81,11 +81,9 @@ button, a {
 @keyframes page-enter {
   0% {
     opacity: 0.94;
-    transform: translateY(3px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -93,31 +91,27 @@ button, a {
   animation: page-enter 220ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* ---------- Mobile / PWA liquid bottom dock ---------- */
+/* ---------- Mobile / PWA native bottom app bar ---------- */
 @media (max-width: 767px) {
   body {
-    padding-bottom: calc(92px + env(safe-area-inset-bottom));
+    padding-bottom: calc(72px + env(safe-area-inset-bottom));
   }
 }
 
-.frame-dock-glass {
-  background: linear-gradient(180deg, rgba(40, 34, 28, 0.62), rgba(18, 15, 13, 0.78));
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
-  backdrop-filter: blur(24px) saturate(160%);
-  box-shadow:
-    0 18px 40px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+.frame-bottom-bar {
+  background: rgba(13, 11, 10, 0.92);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(160%);
 }
 
 .frame-dock-pill {
-  border-radius: 22px;
+  border-radius: 20px;
   background: radial-gradient(120% 140% at 50% 0%, rgba(232, 193, 112, 0.28), rgba(232, 193, 112, 0.08) 70%);
   border: 1px solid rgba(232, 193, 112, 0.35);
-  box-shadow: 0 0 22px rgba(232, 193, 112, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 20px rgba(232, 193, 112, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.15);
   transition:
-    transform 650ms cubic-bezier(0.34, 1.35, 0.64, 1),
+    transform 500ms cubic-bezier(0.34, 1.35, 0.64, 1),
     opacity 300ms ease;
   will-change: transform;
 }

@@ -211,17 +211,17 @@ export default function Navbar({ absolute = false }: { absolute?: boolean }) {
     {/* Settings Sheet / Modal */}
     <SettingsSheet open={settingsOpen} onClose={() => setSettingsOpen(false)} />
 
-    {/* Liquid glass bottom dock — mobile / installed PWA */}
+    {/* Native Full-Width Mobile Bottom Tab Bar */}
     <nav
       aria-label="Primary"
-      className="frame-dock fixed inset-x-0 bottom-0 z-[60] flex justify-center px-4 md:hidden"
-      style={{ paddingBottom: "max(env(safe-area-inset-bottom), 12px)" }}
+      className="frame-bottom-bar fixed inset-x-0 bottom-0 left-0 right-0 z-50 w-full md:hidden"
+      style={{ paddingBottom: "max(env(safe-area-inset-bottom), 6px)" }}
     >
-      <div className="frame-dock-glass relative grid w-full max-w-md grid-cols-4 rounded-[28px] p-1.5">
-        {/* Sliding liquid indicator */}
+      <div className="relative mx-auto grid w-full max-w-md grid-cols-4 px-1.5 py-1">
+        {/* Sliding gold indicator */}
         <span
           aria-hidden
-          className="frame-dock-pill pointer-events-none absolute bottom-1.5 left-1.5 top-1.5"
+          className="frame-dock-pill pointer-events-none absolute bottom-1 left-1.5 top-1"
           style={{
             width: "calc((100% - 12px) / 4)",
             transform: `translateX(${activeIndex * 100}%)`,
@@ -236,7 +236,7 @@ export default function Navbar({ absolute = false }: { absolute?: boolean }) {
               href={item.href}
               onClick={(e) => handleNavClick(item.href, e)}
               aria-current={active ? "page" : undefined}
-              className={`relative z-10 flex flex-col items-center justify-center gap-1 rounded-[22px] py-2.5 transition-all duration-500 active:scale-90 ${
+              className={`relative z-10 flex flex-col items-center justify-center gap-1 rounded-[20px] py-2 transition-all duration-300 active:scale-90 ${
                 active ? "text-gold" : "text-muted"
               }`}
             >
