@@ -33,11 +33,11 @@ export default async function Home() {
   return (
     <main>
       <Navbar absolute />
-      <HeroSection photo={list[0] ?? null} />
+      <HeroSection photos={list} photo={list[0] ?? null} />
       <Marquee />
+      <SeriesTeaser series={series} />
       <GallerySection photos={list} />
       <AboutTeaser />
-      <SeriesTeaser series={series} />
       <Footer />
     </main>
   )

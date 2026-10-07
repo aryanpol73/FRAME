@@ -12,8 +12,7 @@ export default function AboutTeaser() {
           className="font-serif italic leading-snug text-cream"
           style={{ fontSize: "clamp(24px, 3.4vw, 32px)" }}
         >
-          <Reveal>“I don&apos;t follow a genre.</Reveal>
-          <Reveal delay={0.08}>I follow whatever makes me stop.”</Reveal>
+          <Reveal>Life through my Lens 🎥</Reveal>
         </p>
 
         <p className="mt-8 max-w-md text-[15px] leading-relaxed text-muted">

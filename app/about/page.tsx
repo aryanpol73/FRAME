@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase/server"
 export const revalidate = 60
 export const metadata = {
   title: "About — FRAME",
-  description: "FRAME is the photography journal of Aryan Pol.",
+  description: "FRAME is a visual archive by Aryan Pol.",
 }
 
 export default async function AboutPage() {

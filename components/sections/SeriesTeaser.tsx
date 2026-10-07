@@ -13,14 +13,25 @@ export default function SeriesTeaser({ series }: { series: SeriesWithCover[] }) 
   const ref = useRef<HTMLDivElement>(null)
 
   return (
-    <section className="overflow-hidden border-t border-line py-28 md:py-40">
-      <h2
-        className="mb-16 px-6 font-display leading-[0.88] text-cream md:px-12"
-        style={{ fontSize: "clamp(48px, 9vw, 80px)" }}
-      >
-        <Reveal>Shot in</Reveal>
-        <Reveal delay={0.08}>Series.</Reveal>
-      </h2>
+    <section id="series" className="overflow-hidden border-t border-line py-28 md:py-40">
+      <div className="mb-16 flex items-end justify-between px-6 md:px-12">
+        <h2
+          className="font-display leading-[0.88] text-cream"
+          style={{ fontSize: "clamp(48px, 9vw, 80px)" }}
+        >
+          <Reveal>Shot in</Reveal>
+          <Reveal delay={0.08}>Series.</Reveal>
+        </h2>
+
+        <Link
+          href="/series"
+          data-cursor="link"
+          className="group hidden items-center gap-2 rounded-full border border-gold/30 bg-surface/70 px-5 py-2.5 text-[11px] uppercase tracking-[0.18em] text-muted backdrop-blur-md transition-all duration-300 hover:border-gold hover:text-gold active:scale-95 sm:inline-flex"
+        >
+          <span>All Series</span>
+          <span className="text-gold transition-transform duration-300 group-hover:translate-x-1">→</span>
+        </Link>
+      </div>
 
       {series.length === 0 ? (
         <p className="px-6 text-sm text-muted md:px-12">Series coming soon.</p>

@@ -41,49 +41,27 @@ const ICONS: Record<string, React.ReactNode> = {
 export default function Navbar({ absolute = false }: { absolute?: boolean }) {
   const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
-  const [activeSection, setActiveSection] = useState("")
   const [settingsOpen, setSettingsOpen] = useState(false)
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 40)
-
-      if (pathname === "/") {
-        const workEl = document.getElementById("work")
-        if (workEl) {
-          const rect = workEl.getBoundingClientRect()
-          if (rect.top <= 200 && rect.bottom >= 200) {
-            setActiveSection("work")
-          } else if (window.scrollY < 200) {
-            setActiveSection("frame")
-          }
-        }
-      }
     }
 
     window.addEventListener("scroll", onScroll, { passive: true })
     return () => window.removeEventListener("scroll", onScroll)
-  }, [pathname])
+  }, [])
 
   const handleNavClick = (href: string, e: React.MouseEvent) => {
-    if (href === "/#work" && pathname === "/") {
-      e.preventDefault()
-      const el = document.getElementById("work")
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" })
-      }
-    } else if (href === "/" && pathname === "/") {
+    if (href === pathname) {
       e.preventDefault()
       window.scrollTo({ top: 0, behavior: "smooth" })
     }
   }
 
   const isItemActive = (href: string) => {
-    if (href === "/#work") {
-      return pathname === "/" && activeSection === "work"
-    }
     if (href === "/") {
-      return pathname === "/" && activeSection !== "work"
+      return pathname === "/"
     }
     return pathname.startsWith(href)
   }

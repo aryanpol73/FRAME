@@ -25,7 +25,10 @@ export async function GET(request: Request) {
     .eq("photo_id", photoId)
 
   if (error) {
-    return Response.json({ error: error.message }, { status: 500 })
+    return Response.json({
+      counts: { appreciate: 0, beautiful: 0, peaceful: 0, caught_my_eye: 0 },
+      userReaction: null,
+    })
   }
 
   const counts: Record<ReactionType, number> = {

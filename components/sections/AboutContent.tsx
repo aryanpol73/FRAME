@@ -24,7 +24,7 @@ export default function AboutContent({
           <Reveal>About.</Reveal>
         </h1>
         <p className="mt-4 pl-6 text-[12px] uppercase tracking-[0.22em] text-gold md:pl-12">
-          FRAME is the photography journal of Aryan Pol.
+          FRAME — a visual archive by Aryan Pol.
         </p>
       </div>
 
@@ -37,7 +37,7 @@ export default function AboutContent({
               Aryan Pol.
             </h2>
             <p className="mt-1 text-[11px] uppercase tracking-[0.2em] text-muted">
-              Photographer & Collector of Moments
+              Photographer
             </p>
           </div>
 
@@ -48,12 +48,11 @@ export default function AboutContent({
           </p>
 
           <p>
-            I don&apos;t follow a genre. I follow whatever makes me stop.
+            The fun is in finding something worth photographing wherever I happen to be.
           </p>
 
           <p>
-            For me, photography is less about the perfect shot and more about keeping a
-            feeling alive.
+            I like exploring, looking closer, and finding something that catches my eye.
           </p>
 
           <p className="text-cream">
@@ -63,11 +62,8 @@ export default function AboutContent({
           {/* Signature */}
           <div className="pt-8 border-t border-line">
             <p className="font-serif italic text-xl text-cream/95 tracking-wide">
-              “Notice more. Keep what matters.”
+              “LOOK. FIND. FRAME.”
             </p>
-            <span className="mt-2 block font-display tracking-[0.2em] text-xs text-gold">
-              — Aryan Pol
-            </span>
           </div>
 
           {/* Modern Tactile Buttons for Connect */}

@@ -6,10 +6,18 @@ import { useEffect, useState } from "react"
 import { cldUrl } from "@/lib/cloudinary"
 import type { Photo } from "@/lib/supabase/types"
 
-const WORDS = ["STREETS.", "LIGHT.", "NATURE.", "MOMENTS."]
-const STATS = ["VISUAL JOURNAL", "MOMENTS WORTH KEEPING", "FRAME"]
+const WORDS = ["PLACES.", "NATURE.", "LIGHT.", "EVERYTHING."]
+const STATS = ["PHOTOGRAPHS BY ARYAN POL", "COLLECTING THE SECONDS", "FRAME"]
 
-export default function HeroSection({ photo }: { photo: Photo | null }) {
+export default function HeroSection({
+  photos = [],
+  photo = null,
+}: {
+  photos?: Photo[]
+  photo?: Photo | null
+}) {
+  const allPhotos = photos.length > 0 ? photos : photo ? [photo] : []
+  const [photoIndex, setPhotoIndex] = useState(0)
   const [i, setI] = useState(0)
 
   useEffect(() => {
@@ -17,17 +25,34 @@ export default function HeroSection({ photo }: { photo: Photo | null }) {
     return () => clearInterval(id)
   }, [])
 
+  useEffect(() => {
+    if (allPhotos.length <= 1) return
+    const id = setInterval(() => {
+      setPhotoIndex((prev) => (prev + 1) % allPhotos.length)
+    }, 5000)
+    return () => clearInterval(id)
+  }, [allPhotos.length])
+
+  const currentPhoto = allPhotos[photoIndex] ?? null
+
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      {photo ? (
-        <img
-          src={cldUrl(photo.cloudinary_url, { width: 2400, crop: "limit" })}
-          alt=""
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-      ) : (
-        <div className="absolute inset-0 bg-surface" />
-      )}
+      <div className="absolute inset-0 bg-surface">
+        <AnimatePresence>
+          {currentPhoto && (
+            <motion.img
+              key={currentPhoto.id}
+              src={cldUrl(currentPhoto.cloudinary_url, { width: 2400, crop: "limit" })}
+              alt=""
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.2, ease: "easeInOut" }}
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          )}
+        </AnimatePresence>
+      </div>
 
       <div
         className="absolute inset-0"
@@ -62,9 +87,8 @@ export default function HeroSection({ photo }: { photo: Photo | null }) {
           </AnimatePresence>
         </div>
 
-        <p className="mt-6 max-w-[320px] text-[15px] leading-relaxed text-muted">
-          I notice things. I collect moments and turn them into memories worth
-          keeping.
+        <p className="mt-6 max-w-[360px] text-[15px] leading-relaxed text-muted">
+          Collecting the seconds before they disappear.
         </p>
 
         <Link
